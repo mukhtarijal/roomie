@@ -74,15 +74,13 @@
     <nav class="bg-white shadow-lg fixed top-0 w-full z-10">
         <div class="container mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center space-x-4">
-                <!-- Perbesar logo dan teks -->
                 <img src="{{ asset('storage/logo roomie.jpg') }}" alt="Roomie Logo" class="h-16 md:h-20">
-                <!-- Perbesar ukuran logo -->
             </div>
             <ul class="flex space-x-6 text-gray-600">
                 <li><a href="#tentang-kami" class="nav-link hover:text-green-600">About Us</a></li>
-                <li><a href="#" class="hover:text-green-600">Masuk Sebagai Pemilik Kos</a></li>
-                <li><a href="#" class="hover:text-green-600">Login</a></li>
-                <li><a href="#" class="hover:text-green-600">Register</a></li>
+                <li><a href="{{ route('login') }}" class="hover:text-green-600">Masuk Sebagai Pemilik Kos</a></li>
+                <li><a href="{{ route('login') }}" class="hover:text-green-600">Login</a></li>
+                <li><a href="{{ route('register') }}" class="hover:text-green-600">Register</a></li>
             </ul>
         </div>
     </nav>
