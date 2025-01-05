@@ -114,7 +114,11 @@
         class="tentang-kami bg-gradient-to-r from-white-600 to-green-800 text-white text-center py-16">
         <div class="container mx-auto px-4 pop-up">
             <div class="bg-green-600 text-white p-8 rounded-lg shadow-lg mx-auto max-w-4xl">
-                <h2 class="text-3xl font-bold mb-6 slide-in">Tentang Kami</h2>
+                <h2 class="text-3xl font-bold mb-6 slide-in">
+                    Tentang Kami
+                    <div class="w-24 h-1 bg-white mt-2 mx-auto"></div>
+                </h2>
+
                 <p class="text-lg leading-relaxed fade-in mb-6">Roomie hadir khusus untuk memenuhi kebutuhan pencarian
                     kos di wilayah Kota Padang. Kami fokus menyediakan berbagai fitur dan kos sesuai kebutuhan dalam
                     satu platform. Menawarkan pengalaman mudah dengan informasi yang lengkap, Roomie siap membantu
