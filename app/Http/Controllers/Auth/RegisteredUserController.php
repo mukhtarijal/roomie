@@ -29,22 +29,37 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validasi input pendaftaran
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone' => ['required', 'string', 'max:15'],
+            'alamat' => ['required', 'string'],
+            'jenis_kelamin' => ['required', 'string'],
+            'tanggal_lahir' => ['required', 'date'],
+            'role' => ['required', 'in:Owner_kos,User'], // Validasi role
         ]);
 
+        // Membuat pengguna baru dengan data tambahan
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'alamat' => $request->alamat,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'role' => $request->role, // Menyimpan role
         ]);
 
+        // Memicu event setelah registrasi berhasil
         event(new Registered($user));
 
+        // Login otomatis setelah registrasi
         Auth::login($user);
 
-        return redirect(route('create', absolute: false));
+        // Pengalihan setelah registrasi sukses
+        return redirect(route('login'))->with('success', 'Akun berhasil dibuat! Silakan login.');
     }
 }

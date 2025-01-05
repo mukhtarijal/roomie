@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',             // Menambahkan 'role' ke dalam fillable
+        'phone_number',     // Menambahkan 'phone_number' ke dalam fillable
+        'alamat',           // Menambahkan 'alamat' ke dalam fillable
+        'jenis_kelamin',    // Menambahkan 'jenis_kelamin' ke dalam fillable
+        'tanggal_lahir',    // Menambahkan 'tanggal_lahir' ke dalam fillable
     ];
 
     /**
@@ -34,7 +39,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
      * @return array<string, string>
      */
@@ -43,6 +48,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'tanggal_lahir' => 'date', // Menambahkan cast untuk 'tanggal_lahir' menjadi 'date'
         ];
     }
 }
