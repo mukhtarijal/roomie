@@ -15,36 +15,92 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Font Awesome (for icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background: linear-gradient(to right, #2a9d8f, #264653);
-            height: 100vh;
+            background-color: #f3f4f6;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
         }
 
         .card {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
             width: 100%;
+            max-width: 400px;
             background: #ffffff;
+            padding: 20px;
         }
 
         .logo {
             display: block;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 20px;
             width: 120px;
         }
 
         h3 {
-            font-weight: 700;
             color: #264653;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background-color: #2a9d8f;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: #264653;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border-color: #ced4da;
+            margin-bottom: 15px;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group-text {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: transparent;
+            border-color: #ced4da;
+        }
+
+        .text-center a {
+            color: #264653;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .text-center a:hover {
+            color: #2a9d8f;
         }
 
         .form-section {
@@ -55,210 +111,166 @@
             display: block;
         }
 
-        .btn-primary {
-            border-radius: 12px;
-            padding: 12px 20px;
-            background-color: #2a9d8f;
-            border-color: #2a9d8f;
-        }
-
-        .btn-primary:hover {
-            background-color: #264653;
-            border-color: #264653;
-        }
-
-        .phone-input {
-            position: relative;
-        }
-
-        .phone-input .form-control {
-            padding-left: 60px;
-            padding-right: 10px;
-        }
-
-        .phone-input .input-group-text {
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-            background-color: #ffffff;
-            border: 1px solid #ced4da;
-            padding: 5px 10px;
-        }
-
-        .password-toggle {
-            cursor: pointer;
+        .form-label {
+            font-weight: 600;
+            color: #264653;
         }
 
         .form-check-label {
             font-weight: 500;
         }
 
-        .form-label {
-            font-weight: 600;
-            color: #264653;
+        .text-muted a {
+            font-size: 14px;
+            color: #6c757d;
+            text-decoration: none;
         }
 
-        .input-group-text {
-            background-color: #eeeeee;
-            border: 1px solid #ced4da;
+        .text-muted a:hover {
+            color: #2a9d8f;
         }
 
-        .next-btn,
-        .prev-btn {
-            border-radius: 12px;
-            padding: 12px 20px;
-            background-color: #f4a261;
-            border-color: #f4a261;
-        }
-
-        .next-btn:hover,
-        .prev-btn:hover {
-            background-color: #264653;
-            border-color: #264653;
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: -10px;
         }
     </style>
 </head>
 
 <body>
-    <div class="card p-4">
-        <!-- Logo -->
-        <img src="{{ asset('img/logoroomie.png') }}" alt="Project Logo" class="logo">
+    <div class="card">
+        <img src="{{ asset('img/logoroomie.png') }}" alt="Roomie Logo" class="logo">
 
-        <h3 class="text-center text-primary mb-4">Create Your Account</h3>
+        <h3>Create Your Account</h3>
+
         <form id="registrationForm" method="POST" action="{{ route('register') }}">
             @csrf
 
-            <!-- Step 1 -->
+            <!-- Step 1: Email and Password -->
             <div class="form-section active">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email Address</label>
                     <input id="email" type="email" name="email" class="form-control" required>
+                    <span class="error-message" id="emailError"></span>
                 </div>
+
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="position-relative">
                         <input id="password" type="password" name="password" class="form-control" required>
-                        <span id="password-toggle" class="password-toggle position-absolute"
-                            style="right: 10px; top: 10px;">👁️</span>
+                        <span id="password-toggle" class="password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
                     </div>
+                    <span class="error-message" id="passwordError"></span>
                 </div>
-                <button type="button" class="btn btn-primary w-100 next-btn">Next</button>
+
+                <button type="button" class="btn btn-primary next-btn">Next</button>
+
                 <div class="mt-3 text-center">
-                    <a href="{{ route('login') }}" class="btn btn-link p-0">Aku sudah punya akun</a>
+                    <a href="{{ route('login') }}">Already have an account? Login</a>
+                </div>
+
+                <div class="mt-3 text-center">
+                    <a href="{{ route('password.request') }}">
+                        <i class="fas fa-question-circle"></i> Forgot Password?
+                    </a>
                 </div>
             </div>
 
-            <!-- Step 2 -->
+            <!-- Step 2: Name, Birthdate, Gender, Address, Phone -->
             <div class="form-section">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label">Full Name</label>
                     <input id="name" type="text" name="name" class="form-control" required>
+                    <span class="error-message" id="nameError"></span>
                 </div>
+
                 <div class="mb-3">
                     <label for="tanggal_lahir" class="form-label">Date of Birth</label>
                     <input id="tanggal_lahir" type="date" name="tanggal_lahir" class="form-control" required>
+                    <span class="error-message" id="dobError"></span>
                 </div>
+
                 <div class="mb-3">
                     <label class="form-label">Gender</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki-laki"
-                            value="Laki-Laki" required>
-                        <label class="form-check-label" for="laki-laki">Laki-laki</label>
+                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki-laki" value="Laki-Laki" required>
+                        <label class="form-check-label" for="laki-laki">Male</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan"
-                            value="Perempuan" required>
-                        <label class="form-check-label" for="perempuan">Perempuan</label>
+                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="Perempuan" required>
+                        <label class="form-check-label" for="perempuan">Female</label>
                     </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="alamat" class="form-label">Address</label>
                     <textarea id="alamat" name="alamat" class="form-control" rows="3" required></textarea>
+                    <span class="error-message" id="addressError"></span>
                 </div>
 
-                <!-- Role Selection -->
                 <div class="mb-3">
-                    <label for="role" class="form-label">Select Role</label>
-                    <select id="role" name="role" class="form-control" required>
-                        <option value="Owner_kos">Owner Kos</option>
-                        <option value="User">User</option>
-                    </select>
-                </div>
-
-                <!-- Nomor Telepon -->
-                <div class="mb-3 phone-input">
                     <label for="phone" class="form-label">Phone Number</label>
                     <div class="input-group">
                         <span class="input-group-text">+62</span>
-                        <input id="phone" type="text" name="phone" class="form-control"
-                            placeholder="Your phone number" required>
+                        <input id="phone" type="text" name="phone" class="form-control" placeholder="Your phone number" required>
                     </div>
+                    <span class="error-message" id="phoneError"></span>
                 </div>
 
-                <!-- Confirm Password -->
                 <div class="mb-3">
                     <label for="password_confirmation" class="form-label">Confirm Password</label>
                     <div class="position-relative">
-                        <input id="password_confirmation" type="password" name="password_confirmation"
-                            class="form-control" required>
-                        <span id="password-confirmation-toggle" class="password-toggle position-absolute"
-                            style="right: 10px; top: 10px;">👁️</span>
+                        <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" required>
+                        <span id="password-confirmation-toggle" class="password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
                     </div>
+                    <span class="error-message" id="passwordConfirmationError"></span>
                 </div>
 
-                <div class="d-flex justify-content-between">
-                    <button type="button" class="btn btn-secondary prev-btn">Previous</button>
-                    <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+
+                <div class="mt-3 text-center">
+                    <a href="{{ route('login') }}">Already have an account? Login</a>
                 </div>
             </div>
-
         </form>
     </div>
 
-    <!-- Bootstrap Bundle with Popper -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Custom Script -->
+    <!-- Custom JS -->
     <script>
-        const formSections = document.querySelectorAll('.form-section');
-        const nextBtn = document.querySelector('.next-btn');
-        const prevBtn = document.querySelector('.prev-btn');
-        let currentStep = 0;
+        // Handle Password visibility toggle
+        document.getElementById('password-toggle').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
 
-        function showStep(step) {
-            formSections.forEach((section, index) => {
-                section.classList.toggle('active', index === step);
-            });
-        }
+        document.getElementById('password-confirmation-toggle').addEventListener('click', function () {
+            const passwordConfirmationField = document.getElementById('password_confirmation');
+            const type = passwordConfirmationField.type === 'password' ? 'text' : 'password';
+            passwordConfirmationField.type = type;
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+
+        // Step navigation
+        const nextBtn = document.querySelector('.next-btn');
+        const formSections = document.querySelectorAll('.form-section');
+        let currentSection = 0;
 
         nextBtn.addEventListener('click', () => {
-            if (currentStep < formSections.length - 1) {
-                if (document.getElementById('email').value && document.getElementById('password').value) {
-                    currentStep++;
-                    showStep(currentStep);
-                }
+            if (currentSection < formSections.length - 1) {
+                formSections[currentSection].classList.remove('active');
+                currentSection++;
+                formSections[currentSection].classList.add('active');
             }
-        });
-
-        prevBtn?.addEventListener('click', () => {
-            if (currentStep > 0) {
-                currentStep--;
-                showStep(currentStep);
-            }
-        });
-
-        showStep(currentStep);
-
-        // Password toggle
-        document.getElementById('password-toggle').addEventListener('click', () => {
-            const passwordField = document.getElementById('password');
-            passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
-        });
-
-        document.getElementById('password-confirmation-toggle')?.addEventListener('click', () => {
-            const passwordConfirmationField = document.getElementById('password_confirmation');
-            passwordConfirmationField.type = passwordConfirmationField.type === 'password' ? 'text' : 'password';
         });
     </script>
 </body>
