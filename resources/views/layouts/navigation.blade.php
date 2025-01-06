@@ -11,11 +11,11 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center">
                     <a href="{{ route('dashboard') }}" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('dashboard') ? 'text-gray-900' : '' }}">
                         {{ __('Dashboard') }}
                     </a>
-                    <a href="{{ route('transactions.history') }}" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('transactions.history') ? 'text-gray-900' : '' }}">
+                    <a href="{{ route('dashboard') }}" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('transactions.history') ? 'text-gray-900' : '' }}">
                         {{ __('Riwayat Transaksi') }}
                     </a>
                 </div>
