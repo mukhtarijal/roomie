@@ -1,24 +1,50 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{-- Menampilkan view berdasarkan role --}}
-                    @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'admin')
-                        @include('roles.admin')
-                    @elseif (Auth::user()->role == 'Owner_kos' || Auth::user()->role == 'owner_kos')
-                        @include('roles.owner_kos')
-                    @elseif (Auth::user()->role == 'User' || Auth::user()->role == 'user')
-                        @include('roles.user')
-                    @endif
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="font-sans antialiased">
+    <div class="min-h-screen bg-gray-100">
+        <!-- Navigation -->
+        @include('layouts.navigation')
+
+        <!-- Page Heading -->
+        <header class="bg-white shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Dashboard') }}
+                </h2>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        {{-- Menampilkan view berdasarkan role --}}
+                        @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'admin')
+                            @include('roles.admin')
+                        @elseif (Auth::user()->role == 'Owner_kos' || Auth::user()->role == 'owner_kos')
+                            @include('roles.owner_kos')
+                        @elseif (Auth::user()->role == 'User' || Auth::user()->role == 'user')
+                            @include('roles.user')
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
-</x-app-layout>
+</body>
+</html>
