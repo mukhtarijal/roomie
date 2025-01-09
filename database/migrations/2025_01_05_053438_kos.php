@@ -14,6 +14,7 @@ return new class extends Migration
         // Kos table
         Schema::create('kos', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
             $table->string('address');
             $table->integer('available_rooms');
             $table->enum('gender_kos', ['L', 'P', 'Campur']);

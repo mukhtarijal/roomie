@@ -32,7 +32,7 @@
                         <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out {{ request()->routeIs('transactions.history') ? 'text-indigo-600' : '' }}">
                             {{ __('Daftar Penyewa') }}
                         </a>
-                        <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out {{ request()->routeIs('transactions.history') ? 'text-indigo-600' : '' }}">
+                        <a href="{{ route('kos_saya') }}" class="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition duration-300 ease-in-out {{ request()->routeIs('transactions.history') ? 'text-indigo-600' : '' }}">
                             {{ __('Kos Saya') }}
                         </a>
                     @endif
@@ -47,23 +47,33 @@
             </div>
 
             <!-- Mobile Hamburger Menu -->
-            <div class="md:hidden flex items-center">
-                <button class="text-gray-600 hover:text-indigo-600 focus:outline-none" id="mobile-menu-toggle">
+            <div x-data="{ open: false }" class="md:hidden flex items-center">
+                <button @click="open = !open" class="text-gray-600 hover:text-indigo-600 focus:outline-none">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
+
+                <!-- Mobile Menu Dropdown -->
+                <div x-show="open" x-cloak class="absolute top-16 left-0 w-full bg-white shadow-md z-10">
+                    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                        <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-indigo-600 block px-3 py-2 rounded-md text-base font-medium">
+                            {{ __('Dashboard') }}
+                        </a>
+                        <!-- Additional links for mobile here -->
+                    </div>
+                </div>
             </div>
 
             <!-- User Settings Dropdown -->
-            <div class="hidden md:flex md:items-center md:ml-6 relative">
-                <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium text-gray-600 hover:text-indigo-600 focus:outline-none transition duration-300 ease-in-out">
+            <div x-data="{ open: false }" class="hidden md:flex md:items-center md:ml-6 relative">
+                <button @click="open = !open" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium text-gray-600 hover:text-indigo-600 focus:outline-none transition duration-300 ease-in-out">
                     <span>{{ Auth::user()->name }}</span>
                     <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
                 </button>
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                <div x-show="open" x-cloak class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                     <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{ __('Profile') }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -73,22 +83,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Mobile Menu (Hidden by default) -->
-    <div class="md:hidden" id="mobile-menu" style="display: none;">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-indigo-600 block px-3 py-2 rounded-md text-base font-medium">
-                {{ __('Dashboard') }}
-            </a>
-            <!-- Additional links for mobile here -->
-        </div>
-    </div>
 </nav>
-
-<script>
-    // Toggle mobile menu
-    document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
-        const menu = document.getElementById('mobile-menu');
-        menu.style.display = (menu.style.display === 'block' ? 'none' : 'block');
-    });
-</script>
