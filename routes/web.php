@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KosController;
+use App\Http\Controllers\PemilikController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,11 +24,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::resource('kos', KosController::class);
-Route::get('/kos-saya', [KosController::class, 'index'])->name('kos_saya'); // Akan mengarah ke kos_saya.blade
+Route::get('/kos-saya', [KosController::class, 'index'])->name('kos_saya'); 
 Route::get('/kos-saya/create', [KosController::class, 'create'])->name('kos.create');
 Route::post('/kos-saya', [KosController::class, 'store'])->name('kos.store');
-Route::get('/kos-saya/{kos}/edit', [KosController::class, 'edit'])->name('kos.edit');
-Route::put('/kos-saya/{kos}', [KosController::class, 'update'])->name('kos.update');
-Route::delete('/kos-saya/{kos}', [KosController::class, 'destroy'])->name('kos.destroy');
+Route::get('/kos/{id}/edit', [KosController::class, 'edit'])->name('kos.edit');
+Route::put('/kos/{id}', [KosController::class, 'update'])->name('kos.update');
+Route::delete('/kos/{id}', [KosController::class, 'destroy'])->name('kos.destroy');
+
+Route::get('/pemilik', [PemilikController::class, 'pemilikDashboard'])->name('pemilik.index');
 
 require __DIR__ . '/auth.php';
