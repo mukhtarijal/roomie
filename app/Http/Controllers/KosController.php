@@ -83,4 +83,3 @@ class KosController extends Controller
         return redirect()->route('kos.index')->with('success', 'Data Kos berhasil dihapus.');
     }
 }
-

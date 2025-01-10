@@ -29,15 +29,23 @@
             <div class="flex justify-end">
                 <a href="{{ route('kos.create') }}" 
                 class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-600 transition ease-in-out duration-300 transform hover:scale-105">
+
+            <div class="mb-4">
+                <a href="{{ route('kos.create') }}" 
+                   class="bg-green-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-500 transition ease-in-out duration-200"> 
                     Tambah Kos
                 </a>
             </div>
         </div>
-
-
             <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
                 <table class="min-w-full table-auto border-collapse">
                     <thead class="bg-gray-800 text-white text-center">
+
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Daftar Kos Saya</h3>
+
+            <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+                <table class="min-w-full table-auto border-collapse">
+                    <thead class="bg-gray-100 text-gray-600 text-center">
                         <tr>
                             <th class="px-6 py-4 border-r font-medium">Nama Kost</th>
                             <th class="px-6 py-4 border-r font-medium">Alamat</th>
